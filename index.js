@@ -5,11 +5,11 @@ const puppeteer = require('puppeteer');
 // 정적 파일 서비스
 app.use(express.static('public'));
 
-app.get('/a', (req, res) => {
+app.get('/', (req, res) => {
     res.send('res');
 });
 // 기본 라우트
-app.get('/', (req, res) => {
+app.get('/test', (req, res) => {
     function delay(timeout) {
         return new Promise((resolve) => {
             setTimeout(resolve, timeout);
