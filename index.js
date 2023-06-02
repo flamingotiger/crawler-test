@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const puppeteer = require('puppeteer');
 
 // 기본 라우트
 app.get('/', (req, res) => {
@@ -10,7 +11,6 @@ app.get('/', (req, res) => {
     }
 
     async function scrapeData() {
-        let itemLinks = [];
         const browser = await puppeteer.launch({
             headless: false,
         });
@@ -31,14 +31,17 @@ app.get('/', (req, res) => {
             await page.click(nextButtonClass); // 로드 버튼을 클릭합니다.
             await delay(3000);
             i += 20;
-            if (i > 100) {
+            if (i > 80) {
                 break;
             }
+            console.log('i', i);
         }
-        await browser.close();
-        itemLinks = await page.$$eval('a.product-card-image', (el) => {
+        
+        const itemLinks = await page.$$eval('a.product-card-image', (el) => {
             return el.map((e) => e.href);
         });
+        console.log('test');
+        await browser.close();
         res.send({ items: itemLinks });
     }
 
