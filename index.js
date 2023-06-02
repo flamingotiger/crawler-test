@@ -12,7 +12,8 @@ app.get('/', (req, res) => {
 
     async function scrapeData() {
         const browser = await puppeteer.launch({
-            headless: true,
+            headless: "new",
+            Product: "firefox"
         });
         const page = await browser.newPage();
 
@@ -31,7 +32,7 @@ app.get('/', (req, res) => {
             await page.click(nextButtonClass); // 로드 버튼을 클릭합니다.
             await delay(3000);
             i += 20;
-            if (i > 80) {
+            if (i > 60) {
                 break;
             }
             console.log('i', i);
