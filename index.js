@@ -13,7 +13,14 @@ app.get('/', (req, res) => {
     async function scrapeData() {
         const browser = await puppeteer.launch({
             headless: "new",
-            Product: "firefox"
+            Product: "firefox",
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+            ],
+            ignoreHTTPSErrors: true,
         });
         const page = await browser.newPage();
 
@@ -37,7 +44,7 @@ app.get('/', (req, res) => {
             }
             console.log('i', i);
         }
-        
+
         const itemLinks = await page.$$eval('a.product-card-image', (el) => {
             return el.map((e) => e.href);
         });
