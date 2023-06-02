@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const puppeteer = require('puppeteer');
 
+// 정적 파일 서비스
+app.use(express.static('public'));
+
 app.get('/a', (req, res) => {
     res.send('res');
 });
@@ -57,15 +60,6 @@ app.get('/', (req, res) => {
     }
 
     scrapeData();
-});
-
-// 정적 파일 서비스
-app.use(express.static('public'));
-
-// 에러 핸들링 미들웨어
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
 });
 
 // 서버 시작
