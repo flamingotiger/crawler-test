@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 
     async function scrapeData() {
         const browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
         });
         const page = await browser.newPage();
 
