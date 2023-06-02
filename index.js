@@ -9,8 +9,8 @@ app.get('/', (req, res) => {
         });
     }
 
-    let itemLinks = [];
     async function scrapeData() {
+        let itemLinks = [];
         const browser = await puppeteer.launch({
             headless: false,
         });
@@ -39,10 +39,10 @@ app.get('/', (req, res) => {
         itemLinks = await page.$$eval('a.product-card-image', (el) => {
             return el.map((e) => e.href);
         });
+        res.send({ items: itemLinks });
     }
 
     scrapeData();
-    res.send({ items: itemLinks });
 });
 
 // 정적 파일 서비스
