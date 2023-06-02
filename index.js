@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const puppeteer = require('puppeteer');
 
+app.get('/a', (req, res) => {
+    res.send('res');
+});
 // 기본 라우트
 app.get('/', (req, res) => {
     function delay(timeout) {
